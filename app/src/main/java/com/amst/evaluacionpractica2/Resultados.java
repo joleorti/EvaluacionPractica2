@@ -58,9 +58,9 @@ public class Resultados extends AppCompatActivity {
         simpleList = (ListView)findViewById(R.id.listResultados);
         tvResultados = (TextView) findViewById(R.id.tvResultados);
 
-       // busqueda=getIntent().getStringExtra("busqueda");
+        busqueda=getIntent().getStringExtra("busqueda");
 
-        busqueda="bat";
+        //busqueda="bat";
 
         mQueue = Volley.newRequestQueue(this);
 
