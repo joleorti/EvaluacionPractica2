@@ -20,9 +20,11 @@ package com.amst.evaluacionpractica2;
         import com.android.volley.RequestQueue;
         import com.android.volley.Response;
         import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.JsonArrayRequest;
         import com.android.volley.toolbox.JsonObjectRequest;
         import com.android.volley.toolbox.Volley;
 
+        import org.json.JSONArray;
         import org.json.JSONObject;
 
         import java.util.ArrayList;
@@ -36,15 +38,15 @@ public class Resultados extends AppCompatActivity {
     private ListView simpleList;
     private TextView tvResultados;
     private String busqueda;
-    List<String> listParadas = new ArrayList<String>();
+    private int totalBusqueda=0;
 
+
+    List<String> listHeroes = new ArrayList<String>();
     ArrayList<SuperHero> superHeroes=new ArrayList<>();
 
 
     private RequestQueue mQueue = null;
     private String token = "2155149507954454";
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +81,7 @@ public class Resultados extends AppCompatActivity {
             }
         });
 
-
     }
-
-
-
 
     private void buscarHeroe(){
 
@@ -97,16 +95,32 @@ public class Resultados extends AppCompatActivity {
                         System.out.println(response);
                         try {
 
+                            JSONArray jsonArray= (JSONArray) response.get("results");
 
-                            /*
-                            SuperHero superHero = new SuperHero();
-                            superHero.setId();
-*/
+                            for(int i=0;i<jsonArray.length();i++){
+                                SuperHero superHero = new SuperHero();
+                                JSONObject jsonObject= (JSONObject) jsonArray.get(i);
+                                superHero.setId(jsonObject.getString("id"));
+                                superHero.setName(jsonObject.getString("name"));
+
+                                superHeroes.add(superHero);
+                                listHeroes.add(superHero.getName());
+                            }
 
 
+                            if(listHeroes!=null || listHeroes.size()!=0) {
+                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(Resultados.this, R.layout.activity_listview, R.id.textView, listHeroes);
+                                simpleList.setAdapter(arrayAdapter);
+                                totalBusqueda=listHeroes.size();
+                            }
+                            else {
+                                totalBusqueda=0;
+                                Toast.makeText(Resultados.this, "No existen datos con ese valor", Toast.LENGTH_SHORT).show();
+                            }
 
+                            String results="RESULTADOS: "+totalBusqueda;
+                            tvResultados.setText(results);
 
-                            Toast.makeText(Resultados.this, response.toString(), Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
