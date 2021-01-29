@@ -6,6 +6,7 @@ package com.amst.evaluacionpractica2;
         import android.app.AlertDialog;
         import android.content.DialogInterface;
         import android.content.Intent;
+        import android.graphics.Color;
         import android.os.Bundle;
         import android.view.View;
         import android.widget.AdapterView;
@@ -52,6 +53,7 @@ public class Resultados extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultados);
+        //setContentView(R.layout.row);
 
         simpleList = (ListView)findViewById(R.id.listResultados);
         tvResultados = (TextView) findViewById(R.id.tvResultados);
@@ -111,7 +113,7 @@ public class Resultados extends AppCompatActivity {
 
 
                             if(listHeroes!=null || listHeroes.size()!=0) {
-                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(Resultados.this, R.layout.activity_listview, R.id.textView, listHeroes);
+                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(Resultados.this, R.layout.row, R.id.textView, listHeroes);
                                 simpleList.setAdapter(arrayAdapter);
                                 totalBusqueda=listHeroes.size();
                             }
