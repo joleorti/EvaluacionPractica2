@@ -68,6 +68,8 @@ public class Resultados extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                String idHeroe= superHeroes.get(i).getId();
+
                 /*
                 if (userType==0){
                     String parada = adapterView.getItemAtPosition(i).toString();
