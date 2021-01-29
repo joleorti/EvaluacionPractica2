@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#000000"
     android:gravity="center"
-
     android:orientation="vertical"
     tools:context=".Resultados">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff" >
+        android:background="#000000" >
 
         <TextView
             android:id="@+id/tvResultados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="RESULTADOS :0"
+            android:textColor="@color/white"
             android:layout_margin="30dp"
             />
     </LinearLayout>
@@ -28,7 +28,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff" >
+        android:background="#000000" >
 
         <ListView
             android:id="@+id/listResultados"
