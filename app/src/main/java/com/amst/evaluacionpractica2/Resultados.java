@@ -3,6 +3,8 @@ package com.amst.evaluacionpractica2;
         import androidx.annotation.NonNull;
         import androidx.appcompat.app.AppCompatActivity;
 
+        import android.app.AlertDialog;
+        import android.content.DialogInterface;
         import android.content.Intent;
         import android.os.Bundle;
         import android.view.View;
@@ -13,8 +15,19 @@ package com.amst.evaluacionpractica2;
         import android.widget.TextView;
         import android.widget.Toast;
 
+        import com.android.volley.Request;
+        import com.android.volley.RequestQueue;
+        import com.android.volley.Response;
+        import com.android.volley.VolleyError;
+        import com.android.volley.toolbox.JsonObjectRequest;
+        import com.android.volley.toolbox.Volley;
+
+        import org.json.JSONObject;
+
         import java.util.ArrayList;
+        import java.util.HashMap;
         import java.util.List;
+        import java.util.Map;
 
 
 public class Resultados extends AppCompatActivity {
@@ -23,6 +36,8 @@ public class Resultados extends AppCompatActivity {
     private TextView tvResultados;
     private String busqueda;
     List<String> listParadas = new ArrayList<String>();
+    private RequestQueue mQueue = null;
+    private String token = "2155149507954454";
 
 
 
@@ -38,41 +53,9 @@ public class Resultados extends AppCompatActivity {
 
         busqueda="bat";
 
+        mQueue = Volley.newRequestQueue(this);
 
-
-
-
-
-
-        /*
-
-        db_reference.child("Rutas").child("Alban Borja").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    listParadas.add(snapshot.getKey());
-                }
-
-                if(listParadas!=null || listParadas.size()!=0) {
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(Parada.this, R.layout.activity_listview, R.id.textView, listParadas);
-                    simpleList.setAdapter(arrayAdapter);
-                }
-                else {
-                    Toast.makeText(Parada.this, "Lista vacía", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                Toast.makeText(Parada.this, "Error al obtener lista", Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
-
-
+        buscarHeroe();
 
         simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -95,17 +78,67 @@ public class Resultados extends AppCompatActivity {
     }
 
 
+    private void buscarHeroe(){
+        Map<String, String> params = new HashMap();
+        params.put("t", "");
+        JSONObject parametros = new JSONObject(params);
+
+        String url="https://www.superheroapi.com/api.php/"+token+"/search/"+busqueda;
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST, url, parametros,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response);
+                        try {
+                            /*
+                            token = response.getString("token");
+                            Intent menuPrincipal = new
+                                    Intent(getBaseContext(), menu.class);
+                            menuPrincipal.putExtra("token", token);
+                            startActivity(menuPrincipal);
+
+                             */
+
+                            Toast.makeText(Resultados.this, response.toString(), Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                AlertDialog alertDialog = new
+                        AlertDialog.Builder(Resultados.this).create();
+                alertDialog.setTitle("Alerta");
+                alertDialog.setMessage("Busqueda incorrecta");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int
+                                    which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
+
+        });
+        mQueue.add(request);
+    }
+
 
 
 
     @Override
     public void onBackPressed() {
-/*
-        Intent intent = new Intent(Parada.this, Mapa.class);
+
+        Intent intent = new Intent(Resultados.this, Inicio.class);
         startActivity(intent);
         finish();
 
- */
+
     }
 
 
