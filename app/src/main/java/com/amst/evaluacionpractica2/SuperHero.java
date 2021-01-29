@@ -3,12 +3,13 @@ package com.amst.evaluacionpractica2;
 public class SuperHero {
     private String id = "";
     private String name="";
-    private String intelligence="";
-    private String strength="";
-    private String speed="";
-    private String durability="";
-    private String power="";
-    private String combat="";
+    private String fullname="";
+    private String intelligence="0";
+    private String strength="0";
+    private String speed="0";
+    private String durability="0";
+    private String power="0";
+    private String combat="0";
 
 
     public SuperHero(){}
@@ -76,5 +77,13 @@ public class SuperHero {
 
     public void setCombat(String combat) {
         this.combat = combat;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 }
