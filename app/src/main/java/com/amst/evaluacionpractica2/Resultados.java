@@ -21,6 +21,7 @@ public class Resultados extends AppCompatActivity {
 
     private ListView simpleList;
     private TextView tvResultados;
+    private String busqueda;
     List<String> listParadas = new ArrayList<String>();
 
 
@@ -32,6 +33,15 @@ public class Resultados extends AppCompatActivity {
 
         simpleList = (ListView)findViewById(R.id.listResultados);
         tvResultados = (TextView) findViewById(R.id.tvResultados);
+
+       // busqueda=getIntent().getStringExtra("busqueda");
+
+        busqueda="bat";
+
+
+
+
+
 
 
         /*
