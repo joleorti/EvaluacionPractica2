@@ -29,4 +29,10 @@ String busqueda;
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
 }

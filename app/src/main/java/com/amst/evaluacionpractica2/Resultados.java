@@ -53,14 +53,11 @@ public class Resultados extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultados);
-        //setContentView(R.layout.row);
 
         simpleList = (ListView)findViewById(R.id.listResultados);
         tvResultados = (TextView) findViewById(R.id.tvResultados);
 
         busqueda=getIntent().getStringExtra("busqueda");
-
-        //busqueda="bat";
 
         mQueue = Volley.newRequestQueue(this);
 
@@ -72,16 +69,11 @@ public class Resultados extends AppCompatActivity {
 
                 String idHeroe= superHeroes.get(i).getId();
 
-                /*
-                if (userType==0){
-                    String parada = adapterView.getItemAtPosition(i).toString();
-                    Intent intent = new Intent(Parada.this, newParada.class);
-                    intent.putExtra("isNew",false);
-                    intent.putExtra("parada",parada);
-                    startActivity(intent);
-                    finish();
-                }
-*/
+                Intent intent = new Intent(Resultados.this, Habilidades.class);
+                intent.putExtra("id",idHeroe);
+                startActivity(intent);
+                finish();
+
             }
         });
 

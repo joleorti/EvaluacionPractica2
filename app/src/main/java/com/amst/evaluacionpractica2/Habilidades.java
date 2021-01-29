@@ -2,6 +2,7 @@ package com.amst.evaluacionpractica2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -31,6 +32,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,14 +73,18 @@ public class Habilidades extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habilidades);
 
-        // idHeroe=getIntent().getStringExtra("busqueda");
-        idHeroe = "36";
+        idHeroe=getIntent().getStringExtra("id");
+        //idHeroe = "36";
 
         tvName=(TextView) findViewById(R.id.tvName);
         tvFullName=(TextView) findViewById(R.id.tvFullName);
         imvHeroe=(ImageView) findViewById(R.id.imvHeroe);
 
         mQueue = Volley.newRequestQueue(this);
+
+
+
+
 
         /* GRAFICO */
         iniciarGrafico();
@@ -194,8 +200,6 @@ public class Habilidades extends AppCompatActivity {
                             superHero.setName(response.getString("name"));
                             superHero.setFullname(((JSONObject)response.get("biography")).getString("full-name"));
 
-                          //  getImage(((JSONObject)response.get("image")).getString("url"));
-
                             JSONObject powerstats= (JSONObject) response.get("powerstats");
 
                             superHero.setIntelligence(powerstats.getString("intelligence"));
@@ -211,6 +215,16 @@ public class Habilidades extends AppCompatActivity {
 
                             actualizarGrafico(superHero);
 
+
+                            try {
+                                String url=((JSONObject)response.get("image")).getString("url");
+                                Picasso.with(Habilidades.this).load(url).into(imvHeroe);
+
+                            } catch (Exception e) {
+                                System.out.println("No hay foto");
+
+
+                            }
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -233,19 +247,15 @@ public class Habilidades extends AppCompatActivity {
         mQueue.add(request);
 
     }
-    void getImage(String imageHttpAddress) {
-        URL imageUrl = null;
-        imageHttpAddress = imageHttpAddress.replace("\\", "");
-        try {
-            imageUrl = new URL(imageHttpAddress);
-            HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
-            conn.connect();
-            loadedImage = BitmapFactory.decodeStream(conn.getInputStream());
-            imvHeroe.setImageBitmap(loadedImage);
-        } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), "Error cargando la imagen: "+e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(Habilidades.this, Inicio.class);
+        startActivity(intent);
+        finish();
+
+
     }
 
 }
