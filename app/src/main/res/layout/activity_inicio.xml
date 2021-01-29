@@ -1,9 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
+    android:gravity="center"
+    android:padding="30dp"
+    android:orientation="vertical"
     tools:context=".Inicio">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="135dp"
+        android:src="@drawable/logo" />
+
+
+    <TextView
+        android:id="@+id/materia"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aplicaciones Móviles y Sistemas Telemáticos"
+        android:textColor="#FFFFFF"
+        android:gravity="center_horizontal"
+        android:textSize="30dp"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:id="@+id/examen"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:gravity="center_horizontal"
+        android:text="Examen Práctico"
+        android:textSize="20dp"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:id="@+id/nombres"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:textColor="#595858"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:text="Creado por Leonardo Ortiz y Jhonston Benjumea"
+        android:padding="10dp"
+        android:textSize="15dp"
+        />
+
+    <EditText
+        android:id="@+id/edtBusqueda"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Busqueda por nombre"
+        android:textColorHint="#FFFFFF"
+        android:background="@drawable/edit_text"
+        android:padding="10dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:onClick="Buscar"
+        android:text="BUSCAR"
+        android:textColor="#FFFFFF" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        >
+
+
+    </LinearLayout>
+
+</LinearLayout>
