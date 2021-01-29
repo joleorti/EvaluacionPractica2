@@ -15,6 +15,7 @@ package com.amst.evaluacionpractica2;
         import android.widget.TextView;
         import android.widget.Toast;
 
+        import com.android.volley.AuthFailureError;
         import com.android.volley.Request;
         import com.android.volley.RequestQueue;
         import com.android.volley.Response;
@@ -36,6 +37,10 @@ public class Resultados extends AppCompatActivity {
     private TextView tvResultados;
     private String busqueda;
     List<String> listParadas = new ArrayList<String>();
+
+    ArrayList<SuperHero> superHeroes=new ArrayList<>();
+
+
     private RequestQueue mQueue = null;
     private String token = "2155149507954454";
 
@@ -78,28 +83,28 @@ public class Resultados extends AppCompatActivity {
     }
 
 
+
+
     private void buscarHeroe(){
-        Map<String, String> params = new HashMap();
-        params.put("t", "");
-        JSONObject parametros = new JSONObject(params);
 
         String url="https://www.superheroapi.com/api.php/"+token+"/search/"+busqueda;
 
         JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.POST, url, parametros,
+                Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println(response);
                         try {
-                            /*
-                            token = response.getString("token");
-                            Intent menuPrincipal = new
-                                    Intent(getBaseContext(), menu.class);
-                            menuPrincipal.putExtra("token", token);
-                            startActivity(menuPrincipal);
 
-                             */
+
+                            /*
+                            SuperHero superHero = new SuperHero();
+                            superHero.setId();
+*/
+
+
+
 
                             Toast.makeText(Resultados.this, response.toString(), Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
@@ -109,25 +114,20 @@ public class Resultados extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                AlertDialog alertDialog = new
-                        AlertDialog.Builder(Resultados.this).create();
-                alertDialog.setTitle("Alerta");
-                alertDialog.setMessage("Busqueda incorrecta");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int
-                                    which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
             }
-
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "JWT " + token);
+                System.out.println(token);
+                return params;
+            }
+        };;
         mQueue.add(request);
-    }
 
+    }
 
 
 
