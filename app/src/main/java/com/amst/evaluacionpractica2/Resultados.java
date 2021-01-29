@@ -41,10 +41,8 @@ public class Resultados extends AppCompatActivity {
     private String busqueda;
     private int totalBusqueda=0;
 
-
     List<String> listHeroes = new ArrayList<String>();
     ArrayList<SuperHero> superHeroes=new ArrayList<>();
-
 
     private RequestQueue mQueue = null;
     private String token = "2155149507954454";
@@ -68,15 +66,12 @@ public class Resultados extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 String idHeroe= superHeroes.get(i).getId();
-
                 Intent intent = new Intent(Resultados.this, Habilidades.class);
                 intent.putExtra("id",idHeroe);
                 startActivity(intent);
                 finish();
-
             }
         });
-
     }
 
     private void buscarHeroe(){
@@ -102,7 +97,6 @@ public class Resultados extends AppCompatActivity {
                                 superHeroes.add(superHero);
                                 listHeroes.add(superHero.getName());
                             }
-
 
                             if(listHeroes!=null || listHeroes.size()!=0) {
                                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(Resultados.this, R.layout.row, R.id.textView, listHeroes);
